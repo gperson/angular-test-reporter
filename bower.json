@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
+  "name": "angular-test-reporter",
   "description": "A starter project for AngularJS",
   "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "homepage": "https://github.com/gperson/angular-test-reporter",
   "license": "MIT",
   "private": true,
   "dependencies": {

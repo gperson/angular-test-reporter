@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+var app = angular.module('myApp.view1', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
+app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {
     templateUrl: 'view1/view1.html',
     controller: 'testsCtrl'
   });
-}])
+}]);
 
-.controller('testsCtrl', function($scope) {
+app.controller('testsCtrl', function($scope) {
 	$scope.tests = [
 		{'id' : 1, 'name' : 'One', 'param' : 'X = 1, Y = 2', 'start': new Date(), 'end': new Date(), 'status': 'success','extra' : 'Tests if Y + X = X + Y',
 			'notes' : []
@@ -37,4 +37,17 @@ angular.module('myApp.view1', ['ngRoute'])
 		}
 	};
 	
+});
+
+
+app.controller('notesCtrl', function($scope) {
+	$scope.init = function(notes) {
+		$scope.notesForm = notes;
+	}
+	
+	$scope.addNote = function(){
+		$scope.notesForm.push({'note' : $scope.noteInput, 'who' : $scope.whoInput});
+    	$scope.noteInput = '';
+    	$scope.whoInput = '';
+	}
 });

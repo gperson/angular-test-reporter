@@ -20,11 +20,22 @@
   				<td>{{test.extra}}</td>
   			</tr>
   			<tr class="notes" style="display:none">
-  				<td colspan="7">
-  					<div>Notes:</div>
-  					<div ng-repeat="note in test.notes">
-  						{{note.note}}
-  						- {{note.who}}
+  				<td ng-controller="notesCtrl" colspan="7" ng-init="init(test.notes)">
+  					<h3>Notes</h3>
+  					<div ng-repeat="note in notesForm" class="bs-callout bs-callout-primary">
+    					<p>{{note.note}}</p>
+						<p>- {{note.who}}</p>
+  					</div>
+  					<div class="bs-callout bs-callout-primary">
+  						<form ng-submit="addNote()" novalidate>
+    						<h4>Add note</h4>
+    						Note:<br>
+    						<textarea rows="5" type="text" class="form-control" ng-model="noteInput"></textarea>
+    						Name:<br>
+    						<input type="text" class="form-control" ng-model="whoInput">
+    						<button class="btn btn-primary" type="submit">Add Note</button>
+    						<br>
+  						</form>
   					</div>
   				</td>
   			</tr>

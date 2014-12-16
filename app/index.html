@@ -12,32 +12,38 @@
 		<link rel="stylesheet" href="app.css" />
 	</head>
 	<body>
-		<div class="blog-masthead">
+		<!-- Header -->
+		<div class="header">
 			<div class="container">
-				<nav class="blog-nav">
-					<a class="blog-nav-item active" href="#/view1">Home</a>
-					<a class="blog-nav-item" href="#/view2">About</a>
+				<nav class="nav">
+					<a class="nav-item active" href="#/view1">Home</a>
+					<a class="nav-item" href="#/view2">About</a>
 				</nav>
 			</div>
 		</div>
+		<!-- End Header -->
 
-
-		<div ng-view></div>
-
-		<div>
-			Angular seed app: v
-			<span app-version></span>
+		<div class="container">	
+			<!-- Title -->
+			<h1 ng-controller="projectCtrl">{{project.name}}</h1>
+			<div ng-view></div>
 		</div>
 
-		<script	src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
-		<script src="bower_components/jquery/jquery.js"></script>
-		<script src="bower_components/angular/angular.js"></script>
-		<script src="bower_components/angular-route/angular-route.js"></script>
-		<script src="app.js"></script>
-		<script src="view1/view1.js"></script>
-		<script src="view2/view2.js"></script>
-		<script src="components/version/version.js"></script>
-		<script src="components/version/version-directive.js"></script>
-		<script src="components/version/interpolate-filter.js"></script>
+		<div class="footer">
+			<div>
+				Angular seed app: v
+				<span app-version></span>
+			</div>
+		</div>
 	</body>
+	<script	src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="app.js"></script>
+	<script src="view1/view1.js"></script>
+	<script src="view2/view2.js"></script>
+	<script src="components/version/version.js"></script>
+	<script src="components/version/version-directive.js"></script>
+	<script src="components/version/interpolate-filter.js"></script>
 </html>

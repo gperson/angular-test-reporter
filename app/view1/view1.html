@@ -1,8 +1,33 @@
-<div ng-controller="TestsCtrl">
-  <ul>
-    <li ng-repeat="test in tests">
-      <span>{{test.title}}</span>
-      <p>{{test.text}}</p>
-    </li>
-  </ul>
+<div ng-controller="testsCtrl">
+	<table class="table table-hover table-condensed table-bordered">
+  		<thead>
+  			<td>Name</td>
+  			<td>Parameters</td>
+  			<td>Error</td>
+  			<td>Start</td>
+  			<td>End</td>
+  			<td>Time Elapsed (ms)</td>
+  			<td>Extra Info</td>
+  		</thead>
+  		<tbody ng-repeat="test in tests">
+  			<tr class="{{test.status}}" id="{{test.id}}" ng-click="toggleNotes(test.id)">
+  				<td>{{test.name}}</td>
+  				<td>{{test.param}}</td>
+  				<td>{{test.error}}</td>
+  				<td>{{test.start}}</td>
+  				<td>{{test.end}}</td>
+  				<td>{{test.start - test.end}}</td>
+  				<td>{{test.extra}}</td>
+  			</tr>
+  			<tr class="notes" style="display:none">
+  				<td colspan="7">
+  					<div>Notes:</div>
+  					<div ng-repeat="note in test.notes">
+  						{{note.note}}
+  						- {{note.who}}
+  					</div>
+  				</td>
+  			</tr>
+  		</tbody>
+  	</table>
 <div>

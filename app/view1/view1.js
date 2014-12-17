@@ -10,6 +10,7 @@ app.config(['$routeProvider', function($routeProvider) {
 }]);
 
 app.controller('testsCtrl', function($scope) {
+	//TODO get from http://localhost:4968/getTestData
 	$scope.tests = [
 		{'id' : 1, 'name' : 'One', 'param' : 'X = 1, Y = 2', 'start': new Date(), 'end': new Date(), 'status': 'success','extra' : 'Tests if Y + X = X + Y',
 			'notes' : []
@@ -39,7 +40,9 @@ app.controller('testsCtrl', function($scope) {
 	
 });
 
-
+/**
+ * Controller for notes section
+ */
 app.controller('notesCtrl', function($scope) {
 	$scope.init = function(notes) {
 		$scope.notesForm = notes;

@@ -10,7 +10,7 @@ On Mac:
 
 1. Clone to machine
 2. Installed node.js
-4. Run create-tables.sql in MySQL Workbench to create tables
+4. Run create-tables.sql in MySQL Workbench to create tables (../angular-test-reporter/server/create-tables.sql)
 5. Open the start-server.sh file in the project
 6. Edit the "cd" command to your projects path, i.e "... cd /Users/me/project/angular-test-reporter; ..."
 7. Open terminal, got to directory of project

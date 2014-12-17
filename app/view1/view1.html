@@ -14,8 +14,8 @@
   				<td>{{test.name}}</td>
   				<td>{{test.param}}</td>
   				<td>{{test.error}}</td>
-  				<td>{{test.start}}</td>
-  				<td>{{test.end}}</td>
+  				<td>{{test.start | date:"MM/dd/yyyy h:mm:ss a"}}</td>
+  				<td>{{test.end | date:"MM/dd/yyyy h:mm:ss a" }}</td>
   				<td>{{test.start - test.end}}</td>
   				<td>{{test.extra}}</td>
   			</tr>

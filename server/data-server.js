@@ -83,7 +83,9 @@ function getAddNotesToTests(response, tests){
  */
 var server = http.createServer(function (request,response){
 	if(url.parse(request.url).path === "/getTestData"){
-		response.writeHead(200);
+		response.statusCode = 200;
+		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Methods', 'GET');
 		getTestObjects(response, getAddNotesToTests);
 	} else {
 		response.writeHead(404);

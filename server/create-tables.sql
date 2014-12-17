@@ -9,7 +9,7 @@ CREATE TABLE tests(
     `error`						    VARCHAR(500),
     `start`						    DATETIME,
     `end`						    DATETIME,
-    `success`						VARCHAR(50) NOT NULL,
+    `status`						VARCHAR(50) NOT NULL,
     `extra`						    VARCHAR(50),
     PRIMARY KEY (id)
 ) ENGINE = InnoDB;
@@ -23,7 +23,7 @@ CREATE TABLE notes(
 	FOREIGN KEY (testId) REFERENCES tests(id)
 ) ENGINE = InnoDB;
 
-INSERT INTO tests (name,param,error,start,end,success,extra) VALUES
+INSERT INTO tests (name,param,error,start,end,status,extra) VALUES
 ("Test 1","X = 2, Y = 2",null,NOW(),NOW(),"success","Test: X + Y = Y + X"),
 ("Test 2","null","null pointer" ,NOW(),NOW(),"danger",null),
 ("Test with longer name",null,null,NOW(),NOW(),"success",null);

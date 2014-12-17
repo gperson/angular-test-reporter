@@ -27,7 +27,7 @@
 						<p>- {{note.who}}</p>
   					</div>
   					<div class="bs-callout bs-callout-primary">
-  						<form ng-submit="addNote()" novalidate>
+  						<form ng-submit="addNote($event)" novalidate>
     						<h4>Add note</h4>
     						Note:<br>
     						<textarea rows="5" type="text" class="form-control" ng-model="noteInput"></textarea>

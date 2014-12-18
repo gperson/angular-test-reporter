@@ -1,14 +1,16 @@
 <div ng-controller="testsCtrl">
 	<table class="table table-hover table-condensed table-bordered">
   		<thead>
-  			<td>Id</td>
-  			<td>Name</td>
-  			<td>Parameters</td>
-  			<td>Error</td>
-  			<td>Start</td>
-  			<td>End</td>
-  			<td>Time Elapsed (ms)</td>
-  			<td>Extra Info</td>
+  			<tr>
+  				<td>Id</td>
+  				<td>Name</td>
+  				<td>Parameters</td>
+  				<td>Error</td>
+  				<td>Start</td>
+  				<td>End</td>
+  				<td>Time Elapsed (ms)</td>
+  				<td>Extra Info</td>
+  			</tr>
   		</thead>
   		<tbody ng-repeat="test in tests">
   			<tr class="{{test.status}}" id="{{test.id}}" ng-click="toggleNotes(test.id)">
@@ -18,7 +20,7 @@
   				<td>{{test.error}}</td>
   				<td>{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
   				<td>{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
-  				<td>{{(test.start - test.end)}}</td>
+  				<td>{{(test.end - test.start)}}</td>
   				<td>{{test.extra}}</td>
   			</tr>
   			<tr class="notes" style="display:none">
@@ -43,4 +45,4 @@
   			</tr>
   		</tbody>
   	</table>
-<div>
+</div>

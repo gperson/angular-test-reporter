@@ -57,10 +57,9 @@ app.controller('notesCtrl', function($scope,$http) {
 		$scope.whoInput = '';
 
 		$http.post('http://localhost:4968/addNote', JSON.stringify(note)).success(function(data, status, headers, config) {
-			console.log("SUCCESS");
+			console.log("SUCCESS - Adding Note");
 		}).error(function(data, status, headers, config) {
-			console.log("ERROR");
-			//TODO Alert user note wasn't saved
+			alert("Your note wasn't saved, please don't cry.")
 		});
 
 	}

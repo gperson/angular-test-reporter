@@ -69,8 +69,8 @@ function getAddNotesToTests(response, tests, table){
 				var note = notes[j];
 				if(note.testId === test.id){
 					test.notes[j] = note;
-					tests[i] = test;
-				}
+					tests[j] = test;
+				} 
 			}
 		}
 		response.write(JSON.stringify(tests));
@@ -78,6 +78,10 @@ function getAddNotesToTests(response, tests, table){
 	});
 }
 
+/**
+ * Gets the tables in the database to fill the projects drop down
+ * @param response Response to return
+ */
 function getProjectTables(response){
 	var projects = [];
 	var query = connection.query("SELECT TABLE_NAME as project FROM information_schema.tables WHERE TABLE_NAME LIKE 'test_%'", function(err, rows, fields) {
@@ -121,6 +125,12 @@ function addNote(request, response, note){
 	});
 }
 
+/**
+ * Handles requests to add a 'test' to the DB
+ * @param request The http request
+ * @param response The http response
+ * @param body The data from the post request
+ */
 function addTest(request, response, body){
 	var table = body[1];
 	var test = body[0];
@@ -144,6 +154,13 @@ function addTest(request, response, body){
 	});
 }
 
+/**
+ * Function handles JSON POST requests, will read the data and once done
+ * dispatch the request and response the the action function
+ * @param request The http request
+ * @param response The http response
+ * @param action The function to be ran once the body is read
+ */
 function handlePost(request, response, action){
 	response.statusCode = 200;
 	response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
@@ -178,7 +195,6 @@ var server = http.createServer(function (request,response){
 	response.setHeader('Access-Control-Allow-Methods', 'GET');
 	if(path.indexOf("/getTestData?table=") === 0){
 		response.statusCode = 200;
-		console.log("Table "+parts.query.table);
 		getTestObjects(response, parts.query.table, getAddNotesToTests);
 	} else if(parts.pathname === "/addNote"){
 		handlePost(request, response, addNote);

@@ -9,8 +9,8 @@ app.config(['$routeProvider', function($routeProvider) {
 	});
 }]);
 
-app.controller('testsCtrl', function($scope, $http) {
-	$http.get('http://localhost:4968/getTestData').success(function(data, status, headers, config) {
+app.controller('testsCtrl', function($scope, $http, myFactory) {
+	$http.get('http://localhost:4968/getTestData?table='+myFactory.get()).success(function(data, status, headers, config) {		
 		var objs = [];
 		for(var i = 0; i < data.length; i++){
 			var test = data[i];
@@ -40,7 +40,7 @@ app.controller('testsCtrl', function($scope, $http) {
 /**
  * Controller for notes section
  */
-app.controller('notesCtrl', function($scope,$http) {
+app.controller('notesCtrl', function($scope,$http, myFactory) {
 	$scope.init = function(notes) {
 		$scope.notesForm = notes;
 	}
@@ -56,7 +56,7 @@ app.controller('notesCtrl', function($scope,$http) {
 		$scope.noteInput = '';
 		$scope.whoInput = '';
 
-		$http.post('http://localhost:4968/addNote', JSON.stringify(note)).success(function(data, status, headers, config) {
+		$http.post('http://localhost:4968/addNote?table='+myFactory.get(), JSON.stringify(note)).success(function(data, status, headers, config) {
 			console.log("SUCCESS - Adding Note");
 		}).error(function(data, status, headers, config) {
 			alert("Your note wasn't saved, please don't cry.")

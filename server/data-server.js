@@ -17,9 +17,9 @@ var connection = mysql.createConnection({
  * @param response Response to write the test to
  * @param callback Function to map sub objects to the list of tests
  */
-function getTestObjects(response ,callback){
+function getTestObjects(response, table ,callback){
 	var tests = [];
-	var query = connection.query("SELECT * FROM tests ORDER BY start DESC", function(err, rows, fields) {
+	var query = connection.query("SELECT * FROM "+table+" ORDER BY start DESC", function(err, rows, fields) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -32,7 +32,7 @@ function getTestObjects(response ,callback){
 
 	query.on('end',function(){
 		if(callback){
-			callback(response,tests);
+			callback(response,tests, table);
 		}
 		else {
 			response.write(JSON.stringify(tests));
@@ -50,9 +50,9 @@ function getTestObjects(response ,callback){
  * @param response Response to write the tests to
  * @param tests Array of tests from the DB
  */
-function getAddNotesToTests(response, tests){
+function getAddNotesToTests(response, tests, table){
 	var notes = [];
-	var query = connection.query('SELECT * FROM notes', function(err, rows, fields) {
+	var query = connection.query('SELECT * FROM notes_'+table.substring(6), function(err, rows, fields) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -78,13 +78,38 @@ function getAddNotesToTests(response, tests){
 	});
 }
 
+function getProjectTables(response){
+	var projects = [];
+	var query = connection.query("SELECT TABLE_NAME as project FROM information_schema.tables WHERE TABLE_NAME LIKE 'test_%'", function(err, rows, fields) {
+		if (err) {
+			console.log(err);
+		} else {
+			for(var i = 0; i < rows.length; i++){
+				projects[i] = rows[i];
+			}
+		}
+	});
+
+	query.on('end',function(){
+		for(var j = 0; j < projects.length; j++){
+			var project ={};
+			project.db = projects[j].project;
+			project.name = projects[j].project.substring(6);
+			projects[j] = project;
+		}
+		response.write(JSON.stringify(projects));
+		response.end();
+	});
+}
+
 /**
  * Adds a note to a test
  * @param response The response to send back
  * @param note Note object to add
  */
-function addNote(response, note){
-	var query = connection.query("INSERT INTO notes (testId,who,note) VALUES ("+note.testId+",'" + note.who + "','"+note.note+"')", function(err, rows, fields) {
+function addNote(request, response, note){
+	var parts = url.parse(request.url,true);
+	var query = connection.query("INSERT INTO notes_"+(parts.query.table).substring(6)+" (testId,who,note) VALUES ("+note.testId+",'" + note.who + "','"+note.note+"')", function(err, rows, fields) {
 		if (err) {
 			response.statusCode = 400;
 			console.log(err);
@@ -96,15 +121,17 @@ function addNote(response, note){
 	});
 }
 
-function addTest(response, test){
+function addTest(request, response, body){
+	var table = body[1];
+	var test = body[0];
 	var start = new Date(Number(test.start));
 	var end = new Date(Number(test.end));
-	
+
 	//Format to YYYY-MM-DD HH:MM:SS
 	start = start.getFullYear()+"-"+(start.getMonth()+1)+"-"+start.getDate()+" "+start.getHours()+":"+start.getMinutes()+":"+start.getSeconds();
 	end = end.getFullYear()+"-"+(end.getMonth()+1)+"-"+end.getDate()+" "+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
 
-	var queryStr = "INSERT INTO tests (name,param,error,start,end,status,extra) VALUES ('"+test.name+"','" + test.param + "','"+test.error+ "','"+start+ "','"+end+ "','"+test.status+ "','"+test.extra+ "')";
+	var queryStr = "INSERT INTO "+table.table+" (name,param,error,start,end,status,extra) VALUES ('"+test.name+"','" + test.param + "','"+test.error+ "','"+start+ "','"+end+ "','"+test.status+ "','"+test.extra+ "')";
 	var query = connection.query(queryStr, function(err, rows, fields) {
 		if (err) {
 			response.statusCode = 400;
@@ -134,7 +161,7 @@ function handlePost(request, response, action){
 	request.on('end', function () {
 		//TODO Mysterious blank post is sent (below work around)
 		if(body.length){
-			action(response, JSON.parse(body));
+			action(request, response, JSON.parse(body));
 		} else{
 			response.end();
 		}
@@ -145,18 +172,23 @@ function handlePost(request, response, action){
  * Server, so far just handles request to /getTestData
  */
 var server = http.createServer(function (request,response){
-	var path = url.parse(request.url).path;
-	if(path === "/getTestData"){
+	var parts = url.parse(request.url,true);
+	var path = parts.path;
+	response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+	response.setHeader('Access-Control-Allow-Methods', 'GET');
+	if(path.indexOf("/getTestData?table=") === 0){
 		response.statusCode = 200;
-		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-		response.setHeader('Access-Control-Allow-Methods', 'GET');
-		getTestObjects(response, getAddNotesToTests);
-	} else if(path === "/addNote"){
+		console.log("Table "+parts.query.table);
+		getTestObjects(response, parts.query.table, getAddNotesToTests);
+	} else if(parts.pathname === "/addNote"){
 		handlePost(request, response, addNote);
 	} else if(path === "/addTest") {
 		handlePost(request, response, addTest);
+	} else if(path === "/getProjects"){
+		response.statusCode = 200;
+		getProjectTables(response);
 	} else {
-		response.writeHead(404);
+		response.statusCode = 404;
 		response.write("Invalid")
 		response.end();
 	}

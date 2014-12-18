@@ -16,11 +16,7 @@
   font-weight: 500;
   color: #cdddeb;
 }
-.nav-item:hover,
-.nav-item:focus {
-  color: #fff;
-  text-decoration: none;
-}
+
 
 /*
  * Body Styles

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>My AngularJS App</title>
+		<title>TestReporter</title>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -11,27 +11,39 @@
 		<link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css" />
 		<link rel="stylesheet" href="app.css" />
 	</head>
-	<body>
+	<body ng-controller="projectCtrl" data-ng-init="init()">
 		<!-- Header -->
 		<div class="header">
 			<div class="container">
-				<nav class="nav">
-					<a class="nav-item active" href="#/view1">Tests</a>
-					<a class="nav-item" href="#/view2">Reports</a>
-				</nav>
+				<ul class="nav navbar-nav">
+					<li>
+						<a class="nav-item active" href="#/view1">Tests</a>
+					</li>
+					<li>
+						<a class="nav-item" href="#/view2">Reports</a>
+					</li>
+					<li class="dropdown">
+						<a href="" class="nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Project<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li ng-repeat="project in projects">
+								<a ng-click='switchProject(project.db)' href="">{{project.name}}</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<!-- End Header -->
 
 		<div class="container">	
 			<!-- Title -->
-			<h1 ng-controller="projectCtrl">{{project.name}}</h1>
+			<h1>TestReporter - {{project.name}}</h1>
 			<div ng-view></div>
 		</div>
 
 		<div class="footer">
 			<div>
-				Angular TestReporter app: v
+				TestReporter app: v
 				<span app-version></span>
 			</div>
 		</div>
@@ -40,6 +52,7 @@
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>	
 	<script src="app.js"></script>
 	<script src="view1/view1.js"></script>
 	<script src="view2/view2.js"></script>

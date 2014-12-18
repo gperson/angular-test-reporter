@@ -26,9 +26,7 @@ app.controller('testsCtrl', function($scope, $http) {
 	});
 
 	$scope.toggleNotes = function(id){
-		console.log($("#"+id).html());
 		var $notes = $("#"+id).next();
-		console.log($notes.html());
 		if($notes.css("display") === "none"){
 			$notes.css("display", "");
 		}
@@ -49,12 +47,16 @@ app.controller('notesCtrl', function($scope,$http) {
 
 	$scope.addNote = function($event){
 		//TODO has to be better way to get id
-		var jsonNote = "{ 'id' : " +$($event.target).parent().parent().parent().prev().attr('id') +", 'note' : "+$scope.noteInput+", 'who' : " + $scope.whoInput+" }";	
+		var note = { 
+				testId : $($event.target).parent().parent().parent().prev().attr('id'),
+				note : $scope.noteInput,
+				who : $scope.whoInput	
+		};
 		$scope.notesForm.push({'note' : $scope.noteInput, 'who' : $scope.whoInput});
 		$scope.noteInput = '';
 		$scope.whoInput = '';
 
-		$http.post('http://localhost:4968/addNote', jsonNote).success(function(data, status, headers, config) {
+		$http.post('http://localhost:4968/addNote', JSON.stringify(note)).success(function(data, status, headers, config) {
 			console.log("SUCCESS");
 		}).error(function(data, status, headers, config) {
 			console.log("ERROR");

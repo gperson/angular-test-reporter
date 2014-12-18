@@ -79,6 +79,25 @@ function getAddNotesToTests(response, tests){
 }
 
 /**
+ * Adds a note to a test
+ * @param response The response to send back
+ * @param note Note object to add
+ */
+function addNote(response, note){
+	var query = connection.query("INSERT INTO notes (testId,who,note) VALUES ("+note.testId+",'" + note.who + "','"+note.note+"')", function(err, rows, fields) {
+		if (err) {
+			console.log(err);
+		} else {
+			
+		}
+	});
+
+	query.on('end',function(){
+		response.end();
+	});
+}
+
+/**
  * Server, so far just handles request to /getTestData
  */
 var server = http.createServer(function (request,response){
@@ -87,13 +106,35 @@ var server = http.createServer(function (request,response){
 		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
 		response.setHeader('Access-Control-Allow-Methods', 'GET');
 		getTestObjects(response, getAddNotesToTests);
-	} else {
+	} else if(url.parse(request.url).path === "/addNote"){
+		response.statusCode = 200;
+		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Methods', 'POST');
+		response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+		var body = '';	
+		request.on('data', function (data) {
+			body += data;
+		});		
+		request.on('error', function(e) {
+			console.log('Bad post');
+			response.statusCode = 400;
+			response.end();
+		});		
+		request.on('end', function () {
+			//TODO Mysterious blank post is sent (below work around)
+			if(body.length){
+				addNote(response, JSON.parse(body));
+			} else{
+				response.end();
+			}
+		});
+		
+	}else {
 		response.writeHead(404);
 		response.write("Invalid")
 		response.end();
 	}
 });
-
 
 server.listen(4968);
 console.log("Server Started on port 4968");

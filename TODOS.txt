@@ -1,0 +1,16 @@
+Configuration
+-Clean up URLs
+-Windows .bat file to start servers
+-Use async-index to speed loading
+
+UI
+-Add color code key
+-Add something to show a test has comments
+
+Enhancements
+-Statistics
+-Pull tests by run info
+
+Test
+-Write UI tests
+-Write node tests

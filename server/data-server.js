@@ -141,7 +141,7 @@ function addTest(request, response, body){
 	start = start.getFullYear()+"-"+(start.getMonth()+1)+"-"+start.getDate()+" "+start.getHours()+":"+start.getMinutes()+":"+start.getSeconds();
 	end = end.getFullYear()+"-"+(end.getMonth()+1)+"-"+end.getDate()+" "+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
 
-	var queryStr = "INSERT INTO "+table.table+" (name,param,error,start,end,status,extra) VALUES ('"+test.name+"','" + test.param + "','"+test.error+ "','"+start+ "','"+end+ "','"+test.status+ "','"+test.extra+ "')";
+	var queryStr = "INSERT INTO "+table.table+" (name,param,error,start,end,status,extra,runInfo) VALUES ('"+test.name+"','" + test.param + "','"+test.error+ "','"+start+ "','"+end+ "','"+test.status+ "','"+test.extra+ "','"+test.runInfo+"')";
 	var query = connection.query(queryStr, function(err, rows, fields) {
 		if (err) {
 			response.statusCode = 400;

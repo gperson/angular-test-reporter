@@ -4,8 +4,9 @@
   			<tr>
   				<td>Id</td>
   				<td>Name</td>
-  				<td>Parameters</td>
   				<td>Error</td>
+  				<td>Run Info.</td>
+  				<td>Parameters</td>
   				<td>Start</td>
   				<td>End</td>
   				<td>Time Elapsed (ms)</td>
@@ -16,15 +17,16 @@
   			<tr class="{{test.status}}" id="{{test.id}}" ng-click="toggleNotes(test.id)">
   				<td>{{test.id}}</td>
   				<td>{{test.name}}</td>
-  				<td>{{test.param}}</td>
   				<td>{{test.error}}</td>
+  				<td>{{test.runInfo}}</td>
+  				<td>{{test.param}}</td>
   				<td>{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
   				<td>{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
   				<td>{{(test.end - test.start)}}</td>
   				<td>{{test.extra}}</td>
   			</tr>
   			<tr class="notes" style="display:none">
-  				<td ng-controller="notesCtrl" colspan="8" ng-init="init(test.notes)">
+  				<td ng-controller="notesCtrl" colspan="9" ng-init="init(test.notes)">
   					<h3>Notes</h3>
   					<div ng-repeat="note in notesForm" class="bs-callout bs-callout-primary">
     					<p>{{note.note}}</p>

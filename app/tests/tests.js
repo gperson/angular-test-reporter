@@ -1,10 +1,10 @@
 'use strict';
 
-var app = angular.module('myApp.view1', ['ngRoute'])
+var app = angular.module('myApp.tests', ['ngRoute'])
 
 app.config(['$routeProvider', function($routeProvider) {
-	$routeProvider.when('/view1', {
-		templateUrl: 'view1/view1.html'
+	$routeProvider.when('/tests', {
+		templateUrl: 'tests/tests.html'
 	});
 }]);
 

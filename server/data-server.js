@@ -68,8 +68,7 @@ function getAddNotesToTests(response, tests, table){
 			for(var j = 0; j < notes.length; j++){
 				var note = notes[j];
 				if(note.testId === test.id){
-					test.notes[j] = note;
-					tests[j] = test;
+					test.notes.push(note);
 				} 
 			}
 		}

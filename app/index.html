@@ -10,11 +10,12 @@
 		<link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css" />
 		<link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css" />
 		<link rel="stylesheet" href="app.css" />
+		<link rel="stylesheet" href="tests/tests.css" />
 	</head>
 	<body ng-controller="projectCtrl" data-ng-init="init()">
 		<!-- Header -->
 		<div class="header">
-			<div class="container">
+			<div>
 				<ul class="nav navbar-nav">
 					<li>
 						<a class="nav-item active" href="#/tests">Tests</a>
@@ -35,7 +36,7 @@
 		</div>
 		<!-- End Header -->
 
-		<div class="container">	
+		<div class="container-custom">	
 			<!-- Title -->
 			<h1>TestReporter - {{project.name}}</h1>
 			<div ng-view></div>

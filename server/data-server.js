@@ -19,7 +19,7 @@ var connection = mysql.createConnection({
  */
 function getTestObjects(response, table ,callback){
 	var tests = [];
-	var query = connection.query("SELECT * FROM "+table+" ORDER BY start DESC", function(err, rows, fields) {
+	var query = connection.query("SELECT * FROM "+table+" ORDER BY id DESC", function(err, rows, fields) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -131,8 +131,8 @@ function addNote(request, response, note){
  * @param body The data from the post request
  */
 function addTest(request, response, body){
-	var table = body[1];
-	var test = body[0];
+	var table = body.table;
+	var test = body.result;
 	var start = new Date(Number(test.start));
 	var end = new Date(Number(test.end));
 
@@ -140,7 +140,7 @@ function addTest(request, response, body){
 	start = start.getFullYear()+"-"+(start.getMonth()+1)+"-"+start.getDate()+" "+start.getHours()+":"+start.getMinutes()+":"+start.getSeconds();
 	end = end.getFullYear()+"-"+(end.getMonth()+1)+"-"+end.getDate()+" "+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
 
-	var queryStr = "INSERT INTO "+table.table+" (name,param,error,start,end,status,extra,runInfo) VALUES ('"+test.name+"','" + test.param + "','"+test.error+ "','"+start+ "','"+end+ "','"+test.status+ "','"+test.extra+ "','"+test.runInfo+"')";
+	var queryStr = "INSERT INTO "+table+" (name,param,error,start,end,status,extra,runInfo) VALUES ('"+test.name+"','" + test.param + "','"+test.error+ "','"+start+ "','"+end+ "','"+test.status+ "','"+test.extra+ "','"+test.runInfo+"')";
 	var query = connection.query(queryStr, function(err, rows, fields) {
 		if (err) {
 			response.statusCode = 400;

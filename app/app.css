@@ -8,6 +8,12 @@
           box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
 }
 
+.header div {
+	margin-right: 0px;
+	margin-left: 0px;
+	display: table;
+}
+
 /* Nav links */
 .nav-item {
   position: relative;
@@ -17,25 +23,23 @@
   color: #cdddeb;
 }
 
+.container-custom {
+	padding: 30px;	
+}
 
 /*
  * Body Styles
  */
+ body {
+ 	min-width: 1580px;
+ }
+ 
 .bs-callout {
 	padding: 0px 20px;
 	margin: 10px 0;
 	border: 1px solid #eee;
 	border-left-width: 5px;
 	border-radius: 3px;
-}
-
-.notes td h3 {
-	margin-left : 5px;
-	border-bottom: 2px solid;
-}
-
-.notes td div form button {
-	margin : 5px 5px 5px 0px;
 }
 
 /*

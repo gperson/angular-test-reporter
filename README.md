@@ -19,18 +19,19 @@ On Mac:
 
 ## Usage - With Java connector
 To use angular-test-reporter with Java projects, simply add the atr-connector-x-x-x.jar to the projects build path. Bellow are some basic examples of usage using TestNG:
-</pre>
+
+<pre>
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import atr.connect.enums.TestStatus;
 import atr.connect.reporter.TestReporter;
 
 public class DummyTest {
 
+	//Initialize TestReporter, URL of the default data-server
 	TestReporter tr = new TestReporter("http://localhost:4968/addTest");
-
+	
 	@BeforeMethod
 	public void setup() {
 		//Sets start time for the test

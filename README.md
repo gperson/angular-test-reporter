@@ -60,7 +60,6 @@ public class DummyTest {
 				tr.passTest();
 			}
 		}
-
 	}
 
 	@Test
@@ -76,7 +75,6 @@ public class DummyTest {
 				tr.passTest();
 			}
 		}
-
 	}
 
 	@Test

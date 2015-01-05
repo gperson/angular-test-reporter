@@ -15,7 +15,7 @@
   		</thead>
   		<tbody ng-repeat="test in tests">
   			<tr class="{{test.status}}" id="{{test.id}}" ng-click="toggleNotes(test.id)">
-  				<td>{{test.id}}</td>
+  				<td>{{test.id}}{{test.notes.length === 0 ? "" : " ⊕"}}</td>
   				<td>{{test.name}}</td>
   				<td>{{test.error}}</td>
   				<td>{{test.runInfo}}</td>
@@ -47,4 +47,5 @@
   			</tr>
   		</tbody>
   	</table>
+  	<div>⊕ - Denotes it has notes</div>
 </div>

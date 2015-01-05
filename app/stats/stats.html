@@ -1,5 +1,24 @@
-<p>This view will show statistics and maybe some graphs.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div ng-controller="statsCtrl">
+	<table class="table table-condensed table-bordered stats-table">
+		<thead>
+			<tr>
+				<td class="success">Success</td>
+				<td class="danger">Failure</td>
+				<td class="warning">Other</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{stats.success}}</td>
+				<td>{{stats.failure}}</td>
+				<td>{{stats.other}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>Filter by:</div>
+	<select class="form-control filter-table">
+		<option value="all">All</option>
+	</select>
+</div>
+<p>**** More to come. ****</p>
+<p>{{ 'Current version is v%VERSION%.' | interpolate }}</p>

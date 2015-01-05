@@ -41,6 +41,29 @@ function getTestObjects(response, table ,callback){
 	});
 }
 
+function getStats(response, filter, table){
+	var stats = [];
+	var query;
+	if(filter === "all"){
+		query = connection.query("SELECT (SELECT COUNT(*) FROM "+table+" WHERE status = 'success') AS success, "+ 
+				"(SELECT COUNT(*) FROM "+table+" WHERE status = 'danger') as failure, "+
+				"(SELECT COUNT(*) FROM "+table+" WHERE status != 'success' AND status != 'danger') as other", function(err, rows, fields) {
+			if (err) {
+				console.log(err);
+			} else {
+				for(var i = 0; i < rows.length; i++){
+					stats[i] = rows[i];
+				}
+			}
+		});
+
+		query.on('end',function(){
+			response.write(JSON.stringify(stats));
+			response.end();
+		});	
+	}
+}
+
 /**
  * Gets the notes and adds them to the 'test' objects.
  * There is probably one query that could be ran to pull this info
@@ -195,6 +218,9 @@ var server = http.createServer(function (request,response){
 	if(path.indexOf("/getTestData?table=") === 0){
 		response.statusCode = 200;
 		getTestObjects(response, parts.query.table, getAddNotesToTests);
+	} else if(path.indexOf("/getStats?filter") === 0){
+		response.statusCode = 200;
+		getStats(response,parts.query.filter,parts.query.table);
 	} else if(parts.pathname === "/addNote"){
 		handlePost(request, response, addNote);
 	} else if(path === "/addTest") {

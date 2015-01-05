@@ -11,18 +11,13 @@
 		<link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css" />
 		<link rel="stylesheet" href="app.css" />
 		<link rel="stylesheet" href="tests/tests.css" />
+		<link rel="stylesheet" href="stats/stats.css" />
 	</head>
 	<body ng-controller="projectCtrl" data-ng-init="init()">
 		<!-- Header -->
 		<div class="header">
 			<div>
 				<ul class="nav navbar-nav">
-					<li>
-						<a class="nav-item active" href="#/tests">Tests</a>
-					</li>
-					<li>
-						<a class="nav-item" href="#/stats">Reports</a>
-					</li>
 					<li class="dropdown">
 						<a href="" class="nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Project<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
@@ -39,6 +34,10 @@
 		<div class="container-custom">	
 			<!-- Title -->
 			<h1>TestReporter - {{project.name}}</h1>
+			<ul class="nav nav-tabs custom-tab">
+				<li role="presentation"><a href="#tests">Tests</a></li>
+				<li role="presentation"><a href="#/stats">Reports</a></li>
+			</ul>
 			<div ng-view></div>
 		</div>
 

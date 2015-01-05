@@ -31,7 +31,15 @@
  * Body Styles
  */
  body {
- 	min-width: 1600px;
+ 	min-width: 1604px;
+ }
+ 
+ .custom-tab{
+ 	border-bottom: none;
+ }
+ 
+ .custom-tab > li {
+ 	margin-bottom: 0px; 
  }
  
 .bs-callout {

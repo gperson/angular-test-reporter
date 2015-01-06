@@ -15,7 +15,7 @@
   				<td id="h_param">Parameters</td>
   				<td id="h_start">Start</td>
   				<td id="h_end">End</td>
-  				<td id="h_elpased">Elapsed (ms)</td>
+  				<td id="h_elpased">Elapsed (mins)</td>
   				<td id="h_extra">Extra Info</td>
   			</tr>
   		</thead>
@@ -28,7 +28,7 @@
   				<td>{{test.param}}</td>
   				<td>{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
   				<td>{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
-  				<td>{{(test.end - test.start)}}</td>
+  				<td>{{(test.end - test.start)/60000.0 | number:2}}</td>
   				<td>{{test.extra}}</td>
   			</tr>
   			<tr class="notes" style="display:none">

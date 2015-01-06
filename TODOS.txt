@@ -1,5 +1,5 @@
 Configuration
--Clean up URLs
+-Clean up URLs (move to HTML5)
 -Windows .bat file to start servers
 -Use async-index to speed loading
 
@@ -10,7 +10,7 @@ UI
 
 Enhancements
 -Statistics
--Pull tests by run info
+-Pull tests by run info, other filters
 
 Test
 -Write UI tests

@@ -1,5 +1,11 @@
 <div ng-controller="testsCtrl">
-	<table class="table table-hover table-condensed table-bordered">
+	<div id="filter-container">
+		<div class="input-group input-group-sm">
+  			<span class="input-group-addon" id="sizing-addon3">Filter</span>
+  			<input type="text" class="form-control ng-valid ng-dirty" placeholder="Search Value" aria-describedby="sizing-addon3" ng-model="searchKeyword">
+		</div>
+	</div>
+	<table  class="table table-hover table-condensed table-bordered">
   		<thead>
   			<tr>
   				<td id="h_id">Id</td>
@@ -13,12 +19,12 @@
   				<td id="h_extra">Extra Info</td>
   			</tr>
   		</thead>
-  		<tbody ng-repeat="test in tests">
+  		<tbody ng-repeat="test in tests | filter: searchKeyword">
   			<tr class="{{test.status}}" id="{{test.id}}" ng-click="toggleNotes(test.id)">
   				<td>{{test.id}}{{test.notes.length === 0 ? "" : " ⊕"}}</td>
   				<td>{{test.name}}</td>
   				<td>{{test.error}}</td>
-  				<td>{{test.runInfo}}</td>
+  				<td data-title="'Run Info'" filter="{ 'runInfo': 'text' }">{{test.runInfo}}</td>
   				<td>{{test.param}}</td>
   				<td>{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
   				<td>{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>

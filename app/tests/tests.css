@@ -8,13 +8,13 @@
 }
 
 #h_id {
-	min-width: 55px;
-	max-width: 55px;
+	min-width: 57px;
+	max-width: 57px;
 }
 
 #h_name {
-	min-width: 100px;
-	max-width: 100px;
+	min-width: 250px;
+	max-width: 250px;
 }
 
 #h_error {
@@ -28,8 +28,8 @@
 }
 
 #h_param {
-	min-width: 100px;
-	max-width: 100px;
+	min-width: 275px;
+	max-width: 275px;
 }
 
 #h_start {
@@ -56,4 +56,13 @@
 	max-width: 300px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+.b_name, .b_error, .b_param {
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+	word-break: break-all;
 }

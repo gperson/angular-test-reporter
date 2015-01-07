@@ -22,14 +22,14 @@
   		<tbody ng-repeat="test in tests | filter: searchKeyword">
   			<tr class="{{test.status}}" id="{{test.id}}" ng-click="toggleNotes(test.id)">
   				<td>{{test.id}}{{test.notes.length === 0 ? "" : " ⊕"}}</td>
-  				<td>{{test.name}}</td>
-  				<td>{{test.error}}</td>
+  				<td class="b_name">{{test.name}}</td>
+  				<td class="b_error">{{test.error}}</td>
   				<td data-title="'Run Info'" filter="{ 'runInfo': 'text' }">{{test.runInfo}}</td>
-  				<td>{{test.param}}</td>
+  				<td class="b_param">{{test.param}}</td>
   				<td>{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
   				<td>{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
   				<td>{{(test.end - test.start)/60000.0 | number:2}}</td>
-  				<td>{{test.extra}}</td>
+  				<td class="b_extra">{{test.extra}}</td>
   			</tr>
   			<tr class="notes" style="display:none">
   				<td ng-controller="notesCtrl" colspan="9" ng-init="init(test.notes)">

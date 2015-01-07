@@ -24,7 +24,6 @@ To use angular-test-reporter with Java projects, simply add the atr-connector-x-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import atr.connect.enums.TestStatus;
 import atr.connect.reporter.TestReporter;
 
@@ -122,6 +121,9 @@ public class DummyTest {
 </pre>
 
 ## Deploying on Amazon EC2
+
+Bellow is a brief guide for deploying angular-test-reporter on a EC2 instance, I'm sure this could be improved.
+
 1. [Launch an Amazon EC2 Instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance_linux.html)
 2. ssh to the created instance
 3. Do the following [commands/directions](http://iconof.com/blog/how-to-install-setup-node-js-on-amazon-aws-ec2-complete-guide/):
@@ -142,9 +144,15 @@ public class DummyTest {
 cd npm
 sudo make install
 4. Clone the angular-test-reporter object using "git clone ..."
-5. Using vi alter all 'localhosts' to 'ip-of-amazon-instance', i.e 34.56.67.2
-6. Alter security groups, allowing access to port 8000 and 4968
-7. Navigate to http://ip-of-amazon-instance:8000/app
+5. Install my mysql by running: 
+  * yum install mysql mysql-server mysql-libs mysql-server
+  * service mysqld start
+  * /usr/bin/mysqladmin -u root password 'root'
+  * cd angular-test-reporter/rest-server
+  * mysql -u root -p < create-tables.sql
+6. Using vi alter all 'localhosts' to 'ip-of-amazon-instance', i.e 34.56.67.2
+7. Alter security groups, allowing access to port 8000 and 4968
+8. Navigate to http://ip-of-amazon-instance:8000/app
 
 
 

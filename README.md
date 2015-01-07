@@ -2,19 +2,19 @@
 
 This project was originally cloned from: https://github.com/angular/angular-seed.  I am using the angular-seed, to create a test reporting tool. It will pull test result data and show it in a simple web app.
 
-## How to run?
+## Running locally
 
-Prerequisites - MySQL and MySQL Workbench installed
+Prerequisites - MySQL installed
 
 On Mac:
 
 1. Clone to machine
 2. Installed node.js
-4. Run create-tables.sql in MySQL Workbench to create tables (.../angular-test-reporter/server/create-tables.sql)
+4. Run create-tables.sql with MySQLto create tables (.../angular-test-reporter/server/create-tables.sql)
 5. Open the start-server.sh file in the project
 6. Edit the "cd" command to your projects path, i.e "... cd /Users/me/project/angular-test-reporter; ..."
 7. Open terminal, got to directory of project
-8. Run ./start-server.sh
+8. run ./start-server.sh
 9. Navigate to http://localhost:8000/app/
 
 ## Usage - With Java connector
@@ -120,4 +120,32 @@ public class DummyTest {
     }
 }
 </pre>
+
+## Deploying on Amazon EC2
+1. [Launch an Amazon EC2 Instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance_linux.html)
+2. ssh to the created instance
+3. [Run the following commands/directions](http://iconof.com/blog/how-to-install-setup-node-js-on-amazon-aws-ec2-complete-guide/):
+	sudo yum update
+	sudo yum install gcc-cc++ make
+	sudo yum install openssl-devel
+	sudo yum install git
+	git clone git://github.com/joyent/node.get
+	cd node
+	git checkout v0.10.33
+	./configure
+	make
+	sudo make install
+	sudo su
+	vi /etc/sudoers
+	Insert :/usr/local/bin to the end of "Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin" and save and close vi
+	git clone http://github.com/isaacs/npm.git
+	cd npm
+	sudo make install
+4. Clone the angular-test-reporter object using "git clone ..."
+5. Using vi alter all 'localhosts' to '<ip-of=amazon-instance>'
+6. Alter security groups, allowing access to port 8000 and 4968
+7. Navigate to http://<ip-of=amazon-instance>:8000/app
+
+
+
 

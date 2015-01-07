@@ -142,9 +142,9 @@ public class DummyTest {
 cd npm
 sudo make install
 4. Clone the angular-test-reporter object using "git clone ..."
-5. Using vi alter all 'localhosts' to '<ip-of=amazon-instance>'
+5. Using vi alter all 'localhosts' to 'ip-of-amazon-instance', i.e 34.56.67.2
 6. Alter security groups, allowing access to port 8000 and 4968
-7. Navigate to http://<ip-of=amazon-instance>:8000/app
+7. Navigate to http://ip-of-amazon-instance:8000/app
 
 
 

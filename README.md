@@ -120,6 +120,8 @@ public class DummyTest {
 }
 </pre>
 
+For more information about the connector and its source code go [here](https://github.com/gperson/atr-connector).
+
 ## Deploying on Amazon EC2
 
 Bellow is a brief guide for deploying angular-test-reporter on a EC2 instance, I'm sure this could be improved.

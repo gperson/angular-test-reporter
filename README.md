@@ -154,7 +154,7 @@ sudo make install
   * mysql -u root -p < create-tables.sql
 6. Using vi alter all 'localhosts' to 'ip-of-amazon-instance', i.e 34.56.67.2
 7. Alter security groups, allowing access to port 8000 and 4968
-8. Run start-servers.sh 
+8. Run start-servers.sh (You can use [forever](https://www.npmjs.com/package/forever) to run the servers forever, although you have to start them individually as of now using this method)
 9. Navigate to http://ip-of-amazon-instance:8000/app
 
 

@@ -34,7 +34,7 @@ public class DummyTest {
      * By default it posts tests to the tests_Default database table,
      * to change use tr.setProjectTable("tests_ExampleProject")
      */
-    TestReporter tr = new TestReporter("http://localhost:4968/addTest");
+    TestReporter tr = new TestReporter("http://localhost:4968/");
     
     @BeforeMethod
     public void setup() {

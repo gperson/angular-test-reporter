@@ -135,7 +135,8 @@ function getProjectTables(response){
  */
 function addNote(request, response, note){
 	var parts = url.parse(request.url,true);
-	var query = connection.query("INSERT INTO notes_"+(parts.query.table).substring(6)+" (testId,who,note) VALUES ("+note.testId+",'" + note.who + "','"+note.note+"')", function(err, rows, fields) {
+	var queryStr = "INSERT INTO notes_"+(parts.query.table).substring(6)+" (testId,who,note) VALUES ("+connection.escape(note.testId)+"," + connection.escape(note.who) + ","+connection.escape(note.note)+")";
+	var query = connection.query(queryStr,function(err, rows, fields) {
 		if (err) {
 			response.statusCode = 400;
 			console.log(err);
@@ -163,7 +164,7 @@ function addTest(request, response, body){
 	start = start.getFullYear()+"-"+(start.getMonth()+1)+"-"+start.getDate()+" "+start.getHours()+":"+start.getMinutes()+":"+start.getSeconds();
 	end = end.getFullYear()+"-"+(end.getMonth()+1)+"-"+end.getDate()+" "+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
 
-	var queryStr = "INSERT INTO "+table+" (name,param,error,start,end,status,extra,runInfo) VALUES ('"+test.name+"','" + test.param + "','"+test.error+ "','"+start+ "','"+end+ "','"+test.status+ "','"+test.extra+ "','"+test.runInfo+"')";
+	var queryStr = "INSERT INTO "+table+" (name,param,error,start,end,status,extra,runInfo) VALUES ("+connection.escape(test.name)+"','" + connection.escape(test.param) + ","+connection.escape(test.error)+ "','"+start+ "','"+end+ "',"+connection.escape(test.status)+ ","+connection.escape(test.extra)+ ","+connection.escape(test.runInfo)+")";
 	var query = connection.query(queryStr, function(err, rows, fields) {
 		if (err) {
 			response.statusCode = 400;

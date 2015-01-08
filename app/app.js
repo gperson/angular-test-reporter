@@ -30,7 +30,7 @@ app.controller('projectCtrl', function($scope, $location, $http, myFactory) {
 	$scope.switchProject = function(project){
 		myFactory.set(project);
 		$scope.project.name = project.substring(6);
-		$location.path('/app/index.html#/view1');
+		$location.path('/app/index.html#/tests');
 	};
 });
 

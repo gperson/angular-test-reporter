@@ -58,7 +58,7 @@
 	margin-bottom: 5px;
 }
 
-.b_name, .b_error, .b_param, .b_extra {
+.b_name, .b_error, .b_param, .b_extra, .b_runInfo {
 	white-space: pre-wrap;
 	white-space: -moz-pre-wrap;
 	white-space: -pre-wrap;

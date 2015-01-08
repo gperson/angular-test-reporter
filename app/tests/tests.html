@@ -15,7 +15,7 @@
   				<td id="h_param">Parameters</td>
   				<td id="h_start">Start</td>
   				<td id="h_end">End</td>
-  				<td id="h_elpased">Elapsed (mins)</td>
+  				<td id="h_elpased">Elapsed</td>
   				<td id="h_extra">Extra Info</td>
   			</tr>
   		</thead>
@@ -24,11 +24,11 @@
   				<td>{{test.id}}{{test.notes.length === 0 ? "" : " ⊕"}}</td>
   				<td class="b_name">{{test.name}}</td>
   				<td class="b_error">{{test.error}}</td>
-  				<td data-title="'Run Info'" filter="{ 'runInfo': 'text' }">{{test.runInfo}}</td>
+  				<td class="b_runInfo">{{test.runInfo}}</td>
   				<td class="b_param">{{test.param}}</td>
   				<td>{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
   				<td>{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
-  				<td>{{(test.end - test.start)/60000.0 | number:2}}</td>
+  				<td>{{(test.end - test.start)/60000.0 | number:2}} mins</td>
   				<td class="b_extra">{{test.extra}}</td>
   			</tr>
   			<tr class="notes" style="display:none">

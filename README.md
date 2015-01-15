@@ -69,54 +69,6 @@ public class DummyTest {
             }
         }
     }
-    
-    /**
-     * Example where no information is set (Except run info in the before method...which we could omit also)
-     * @throws Throwable
-     */
-    @Test
-    public void test_2() throws Throwable { 
-        try {
-            //The test
-            Assert.assertEquals("Are equal", "No");
-        } catch (Throwable e) {
-            tr.failTest(e);
-        } finally {
-            if (tr.status) {
-                tr.passTest();
-            }
-        }
-    }
-    
-    /**
-     * Example of test results being posted the non-default table 
-     * and non-default error message
-     * @throws Throwable
-     */
-    @Test
-    public void test_3() throws Throwable {
-        try {
-            //Sets the table to post info to
-            tr.setProjectTable("tests_ExampleProject");
-            
-            //Sets the name of the test
-            tr.setName("test_3");
-            
-            //The test
-            Assert.assertEquals("Actual", "Expected");
-            
-        } catch (Throwable e) {
-            //If error we add extra info to the test result
-            tr.setExtra("Error with test");
-            
-            //Fails the test with the non-default error status and throws the error
-            tr.failTestNonDefault(TestStatus.ERROR, e);
-        } finally {
-            if (tr.status) {
-                tr.passTest();
-            }
-        }
-    }
 }
 </pre>
 

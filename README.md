@@ -18,7 +18,7 @@ On Mac:
 9. Navigate to http://localhost:8000/app/
 
 ## Usage - With Java connector
-To use angular-test-reporter with Java projects, simply add the atr-connector-x-x-x.jar (in the connectors folder) to the projects build path. Bellow are some basic examples of usage:
+To use angular-test-reporter with Java projects, simply add the atr-connector-x-x-x.jar (in the connectors folder) to the projects build path. Bellow is a basic example of usage:
 
 <pre>
 import org.testng.Assert;
@@ -72,7 +72,7 @@ public class DummyTest {
 }
 </pre>
 
-For more information about the connector and its source code go [here](https://github.com/gperson/atr-connector).
+For more information, examples, and source code for the connector go [here](https://github.com/gperson/atr-connector).
 
 ## Deploying on Amazon EC2
 

@@ -51,9 +51,8 @@ function getStats(response, filter, table){
 			if (err) {
 				console.log(err);
 			} else {
-				for(var i = 0; i < rows.length; i++){
-					stats[i] = rows[i];
-				}
+				stats[0] = rows[0];
+				stats[0].filter = "All";
 			}
 		});
 
@@ -61,6 +60,47 @@ function getStats(response, filter, table){
 			response.write(JSON.stringify(stats));
 			response.end();
 		});	
+	} else if(filter === "runInfo"){
+		var runInfos = [];
+		query = connection.query("SELECT DISTINCT runInfo FROM "+table, function(err, rows, fields) {
+			if (err) {
+				console.log(err);
+			} else {
+				for(var i = 0; i < rows.length; i++){
+					runInfos.push(rows[i]);
+				}
+			}
+		});
+		
+		query.on('end',function(){		
+			var doneWith = 0;
+			for(var j = 0; j < runInfos.length;){
+				query2 = connection.query("SELECT DISTINCT runInfo, (SELECT COUNT(*) FROM "+table+" WHERE status = 'success' AND "+connection.escape(runInfos[j])+") AS success, "+ 
+						"(SELECT COUNT(*) FROM "+table+" WHERE status = 'danger' AND "+connection.escape(runInfos[j])+") as failure, "+
+						"(SELECT COUNT(*) FROM "+table+" WHERE status != 'success' AND status != 'danger' AND "+connection.escape(runInfos[j])+") as other FROM "+table+" WHERE "+connection.escape(runInfos[j]), function(err, rows, fields) {
+					if (err) {
+						console.log(err);
+					} else {
+						var stat = {};
+						stat.filter = rows[0].runInfo;
+						stat.success = rows[0].success;
+						stat.failure = rows[0].failure;
+						stat.other = rows[0].other;
+						stats.push(stat);
+					}
+				});
+				j++;
+				query2.on('end',function(){
+					doneWith++;
+					if(doneWith == runInfos.length){
+						response.write(JSON.stringify(stats));
+						response.end();
+					}
+				});
+			}
+		});	
+	} else{
+		response.end();
 	}
 }
 

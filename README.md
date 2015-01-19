@@ -18,7 +18,7 @@ On Mac:
 9. Navigate to http://localhost:8000/app/
 
 ## Usage - With Java connector
-To use angular-test-reporter with Java projects, simply add the atr-connector-x-x-x.jar (in the connectors folder) to the projects build path. Bellow are some basic examples of usage:
+To use angular-test-reporter with Java projects, simply add the atr-connector-x-x-x.jar (in the connectors folder) to the projects build path. Bellow is a basic example of usage:
 
 <pre>
 import org.testng.Assert;
@@ -69,58 +69,10 @@ public class DummyTest {
             }
         }
     }
-    
-    /**
-     * Example where no information is set (Except run info in the before method...which we could omit also)
-     * @throws Throwable
-     */
-    @Test
-    public void test_2() throws Throwable { 
-        try {
-            //The test
-            Assert.assertEquals("Are equal", "No");
-        } catch (Throwable e) {
-            tr.failTest(e);
-        } finally {
-            if (tr.status) {
-                tr.passTest();
-            }
-        }
-    }
-    
-    /**
-     * Example of test results being posted the non-default table 
-     * and non-default error message
-     * @throws Throwable
-     */
-    @Test
-    public void test_3() throws Throwable {
-        try {
-            //Sets the table to post info to
-            tr.setProjectTable("tests_ExampleProject");
-            
-            //Sets the name of the test
-            tr.setName("test_3");
-            
-            //The test
-            Assert.assertEquals("Actual", "Expected");
-            
-        } catch (Throwable e) {
-            //If error we add extra info to the test result
-            tr.setExtra("Error with test");
-            
-            //Fails the test with the non-default error status and throws the error
-            tr.failTestNonDefault(TestStatus.ERROR, e);
-        } finally {
-            if (tr.status) {
-                tr.passTest();
-            }
-        }
-    }
 }
 </pre>
 
-For more information about the connector and its source code go [here](https://github.com/gperson/atr-connector).
+For more information, examples, and source code for the connector go [here](https://github.com/gperson/atr-connector).
 
 ## Deploying on Amazon EC2
 

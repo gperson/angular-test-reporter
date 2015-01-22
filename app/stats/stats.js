@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('myApp.stats', ['ngRoute'])
+var app = angular.module('myApp.stats', ['ngRoute','highcharts-ng'])
 
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/stats', {
@@ -18,12 +18,51 @@ app.controller('statsCtrl', function($scope, $http, myFactory) {
 	                  ];
 
 	$scope.filteredStats = $scope.options[0];
-	
+
 	$scope.initStats = fetchStats('all');
-	
+
 	$scope.getStats = function(option){
 		fetchStats(option.value);
 	}
+
+	$scope.chartConfig = {
+			loading: true
+	}
+
+	$http.get('http://localhost:4968/getStats?filter=all&table='+myFactory.get()).success(function(data, status, headers, config) {
+		$scope.chartConfig = {
+				options: {
+					chart: {
+						type: 'pie'
+					}
+				},
+				series: [{
+					name: 'Number of tests',
+					data: [{
+						name: 'Successes',
+						y : data[0].success,
+						color : '#dff0d8'
+					},
+					{
+						name: 'Failures',
+						y : data[0].failure,
+						color : '#f2dede'
+					},
+					{
+						name: 'Other',
+						y : data[0].other,
+						color : '#fcf8e3'
+					}
+					] 				
+				}],
+				title: {
+					text: 'Test Statuses'
+				},
+				loading: false
+		}
+	}).error(function(data, status, headers, config) {
+		
+	});
 
 	function fetchStats(value){
 		$http.get('http://localhost:4968/getStats?filter='+value+'&table='+myFactory.get()).success(function(data, status, headers, config) {		

@@ -1,7 +1,21 @@
-.stats-table {
-	max-width: 500px;
+#statsTitle{
+	border-bottom : 2px solid #000;
+}
+
+#tables {
+	margin: 0 10px;
+	width: 500px;
+	float : left;
 }
 
 .filter-table{
 	max-width: 250px;
+}
+
+#graphs {
+	border: 1px solid #ddd;
+	width : 600px;
+	float : left;
+	padding: 10px;
+	margin: 0 10px;
 }

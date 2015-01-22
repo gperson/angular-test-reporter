@@ -1,24 +1,37 @@
 <div ng-controller="statsCtrl" data-ng-init="initStats()">
-	<h3>Test Summary</h3>
-	<table class="table table-condensed table-bordered stats-table">
-		<thead>
-			<tr>
-				<td class="">Filter</td>
-				<td class="success">Success</td>
-				<td class="danger">Failure</td>
-				<td class="warning">Other</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="stat in stats">
-				<td>{{stat.filter}}
-				<td>{{stat.success}}</td>
-				<td>{{stat.failure}}</td>
-				<td>{{stat.other}}</td>
-			</tr>
-		</tbody>
-	</table>
-	<div>Filter by:</div>
-	<select ng-model="filteredStats" ng-change="getStats(filteredStats)" class="form-control filter-table" ng-options="opt as opt.label for opt in options">
-	</select>
+	<h3 id="statsTitle">Test Results Summaries</h3>
+	<div class="row">
+		<div id="graphs">
+			<highchart config="chartConfig"></highchart>
+			<div>Filter by:</div>
+			<select class="form-control filter-table">
+				<option>All</option>
+			</select>
+		</div>
+		<div id="tables">
+			<table class="table table-condensed table-bordered">
+				<thead>
+					<tr>
+						<td class="">Filter</td>
+						<td class="success">Success</td>
+						<td class="danger">Failure</td>
+						<td class="warning">Other</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="stat in stats">
+						<td>{{stat.filter}}
+						<td>{{stat.success}}</td>
+						<td>{{stat.failure}}</td>
+						<td>{{stat.other}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>Filter by:</div>
+			<select ng-model="filteredStats" ng-change="getStats(filteredStats)"
+				class="form-control filter-table"
+				ng-options="opt as opt.label for opt in options">
+			</select>
+		</div>
+	</div>
 </div>

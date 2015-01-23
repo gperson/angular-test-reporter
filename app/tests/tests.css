@@ -54,8 +54,7 @@
 
 #filter-container {
 	max-width: 300px;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 }
 
 .b_name, .b_error, .b_param, .b_extra, .b_runInfo {

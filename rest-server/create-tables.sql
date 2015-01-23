@@ -26,7 +26,7 @@ CREATE TABLE notes_Default(
     `who`						    VARCHAR(50),
     `note`						    VARCHAR(500),
     PRIMARY KEY (id),
-	FOREIGN KEY (testId) REFERENCES tests_Default(id)
+	FOREIGN KEY (testId) REFERENCES tests_Default(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 /**
@@ -56,5 +56,5 @@ CREATE TABLE notes_ExampleProject(
     `who`						    VARCHAR(50),
     `note`						    VARCHAR(500),
     PRIMARY KEY (id),
-	FOREIGN KEY (testId) REFERENCES tests_ExampleProject(id)
+	FOREIGN KEY (testId) REFERENCES tests_ExampleProject(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;

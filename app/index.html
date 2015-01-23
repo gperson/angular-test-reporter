@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="app.css" />
 		<link rel="stylesheet" href="tests/tests.css" />
 		<link rel="stylesheet" href="stats/stats.css" />
+		<link rel="stylesheet" href="manage/manage.css" />
 	</head>
 	<body ng-controller="projectCtrl" data-ng-init="init()">
 		<!-- Header -->
@@ -40,6 +41,7 @@
 			<ul class="nav nav-tabs custom-tab">
 				<li role="presentation"><a href="#/tests">Tests</a></li>
 				<li role="presentation"><a href="#/stats">Reports</a></li>
+				<li role="presentation"><a href="#/manage">Manage</a></li>
 			</ul>
 			<div ng-view></div>
 		</div>
@@ -59,6 +61,7 @@
 	<script src="app.js"></script>
 	<script src="tests/tests.js"></script>
 	<script src="stats/stats.js"></script>
+	<script src="manage/manage.js"></script>
 	<script src="components/version/version.js"></script>
 	<script src="components/version/version-directive.js"></script>
 	<script src="components/version/interpolate-filter.js"></script>

@@ -41,6 +41,12 @@ function getTestObjects(response, table ,callback){
 	});
 }
 
+/**
+ * Gets stats for the reports page
+ * @param response The response object
+ * @param filter The filter being used for the stats
+ * @param table Table for the current project
+ */
 function getStats(response, filter, table){
 	var stats = [];
 	var query;
@@ -71,7 +77,7 @@ function getStats(response, filter, table){
 				}
 			}
 		});
-		
+
 		query.on('end',function(){		
 			var doneWith = 0;
 			for(var j = 0; j < runInfos.length;){
@@ -100,6 +106,39 @@ function getStats(response, filter, table){
 			}
 		});	
 	} else{
+		response.end();
+	}
+}
+
+/**
+ * Handles deleting tests from a table
+ * @param response
+ * @param tests
+ * @param table
+ */
+function deleteTests(response, tests, table){
+	var query;
+	if(tests === "all"){
+		query = connection.query("", function(err, rows, fields) {
+			if (err) {
+				console.log(err);
+			}
+		});
+
+		query.on('end',function(){
+			response.end();
+		});	
+	} else if(tests === "previous"){
+		query = connection.query("DELETE FROM "+table+" ORDER BY id DESC LIMIT 1", function(err, rows, fields) {
+			if (err) {
+				console.log(err);
+			}
+		});
+
+		query.on('end',function(){
+			response.end();
+		});	
+	} else {
 		response.end();
 	}
 }
@@ -226,9 +265,6 @@ function addTest(request, response, body){
  */
 function handlePost(request, response, action){
 	response.statusCode = 200;
-	response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-	response.setHeader('Access-Control-Allow-Methods', 'POST');
-	response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 	var body = '';	
 	request.on('data', function (data) {
 		body += data;
@@ -249,30 +285,116 @@ function handlePost(request, response, action){
 }
 
 /**
+ * Verifies requests that should be GET's and sets response headers
+ * @param request
+ * @param response
+ * @returns {Boolean} if it is a GET request
+ */
+function verifyGetRequest(request,response){
+	if(request.method === 'GET'){
+		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Methods', 'GET');
+		response.statusCode = 200;
+		return true;
+	} else {
+		badRequest(response);
+		return false;
+	}
+}
+
+/**
+ * Verifies requests that should be POST's and sets response headers
+ * @param request
+ * @param response
+ * @returns {Boolean} if it is a POST request
+ */
+function verifyPostRequest(request,response){
+	if(request.method === 'OPTIONS'){
+		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
+		response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+		response.statusCode = 200;
+		response.end();
+		return false;
+	} else if(request.method === 'POST'){
+		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Methods', 'POST');
+		response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+		response.statusCode = 200;
+		return true;
+	} else {
+		badRequest(response);
+		return false;
+	}
+}
+
+/**
+ * Verifies requests that should be DELETE's and sets response headers
+ * @param request
+ * @param response
+ * @returns {Boolean} if it is a DELETE request
+ */
+function verifyDeleteRequest(request,response){
+	if(request.method === 'OPTIONS'){
+		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, DELETE');
+		response.statusCode = 200;
+		response.end();
+		return false;
+	} else if(request.method === 'DELETE'){
+		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Methods', 'DELETE');
+		response.statusCode = 200;
+		return true;
+	} else {
+		badRequest(response);
+		return false;
+	}
+}
+
+/**
+ * Handles bad requests
+ * @param response
+ */
+function badRequest(response){
+	response.statusCode = 404;
+	response.write("Invalid")
+	response.end();
+}
+
+/**
  * Server, so far just handles request to /getTestData
  */
 var server = http.createServer(function (request,response){
 	var parts = url.parse(request.url,true);
 	var path = parts.path;
-	response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-	response.setHeader('Access-Control-Allow-Methods', 'GET');
+	console.log("Ping - " + request.method +" " +path);
 	if(path.indexOf("/getTestData?table=") === 0){
-		response.statusCode = 200;
-		getTestObjects(response, parts.query.table, getAddNotesToTests);
-	} else if(path.indexOf("/getStats?filter") === 0){
-		response.statusCode = 200;
-		getStats(response,parts.query.filter,parts.query.table);
+		if(verifyGetRequest(request,response)){
+			getTestObjects(response, parts.query.table, getAddNotesToTests);
+		}
+	} else if(path.indexOf("/getStats?filter=") === 0){
+		if(verifyGetRequest(request,response)){
+			getStats(response,parts.query.filter,parts.query.table);
+		}
 	} else if(parts.pathname === "/addNote"){
-		handlePost(request, response, addNote);
+		if(verifyPostRequest(request,response)){
+			handlePost(request, response, addNote);
+		}
 	} else if(path === "/addTest") {
-		handlePost(request, response, addTest);
+		if(verifyPostRequest(request,response)){
+			handlePost(request, response, addTest);
+		}
 	} else if(path === "/getProjects"){
-		response.statusCode = 200;
-		getProjectTables(response);
+		if(verifyGetRequest(request,response)){
+			getProjectTables(response);
+		}
+	} else if(path.indexOf("/deleteTests?tests=") === 0){
+		if(verifyDeleteRequest(request,response)){
+			deleteTests(response,parts.query.tests,parts.query.table);
+		}
 	} else {
-		response.statusCode = 404;
-		response.write("Invalid")
-		response.end();
+		badRequest(response.end());
 	}
 });
 

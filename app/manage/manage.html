@@ -1,0 +1,27 @@
+<div ng-controller="manageCtrl" >
+	<h3 id="viewTitle">Manage Project</h3>
+	<div class="panels panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Actions</h3>
+        </div>
+        <div class="panel-body">
+        	<div>This will delete the most recent test added to the database for this project.</div>
+        	<div><button class="btn btn-default buttons" ng-click="deleteMostRecent()">Delete Most Recent Test</button></div>
+        	<div>This backs up the current database to an external file on the server.</div>
+        	<div><button class="btn btn-default buttons" ng-click="">Backup</button></div>			
+        </div>
+    </div>
+	<div class="panels panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">Warning - Danger Zone</h3>
+        </div>
+        <div class="panel-body">
+        	<div>This will <strong>delete the 100 oldest tests</strong> that are currently in the database for this project.</div>
+			<div><button class="btn btn-warning buttons" ng-click="">Delete 100 Oldest Tests</button></div>
+        	<div>This writes the current database to an external file on the server and then deletes the current data.</div>
+        	<div><button class="btn btn-warning buttons" ng-click="">Dump and Delete</button></div>
+        	<div>This will <strong>delete all tests</strong> that are currently in the database for this project.</div>
+        	<div><button class="btn btn-danger buttons" ng-click="">Delete All Tests</button></div>
+        </div>
+    </div>
+</div>

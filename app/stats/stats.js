@@ -9,7 +9,8 @@ app.config(['$routeProvider', function($routeProvider) {
 }])
 
 app.controller('statsCtrl', function($scope, $http, myFactory) {
-
+	var baseURL = 'http://localhost:4968';
+	
 	$scope.stats = {};
 
 	$scope.options = [
@@ -29,7 +30,7 @@ app.controller('statsCtrl', function($scope, $http, myFactory) {
 			loading: true
 	}
 
-	$http.get('http://localhost:4968/getStats?filter=all&table='+myFactory.get()).success(function(data, status, headers, config) {
+	$http.get(baseURL+'/getStats?filter=all&table='+myFactory.get()).success(function(data, status, headers, config) {
 		$scope.chartConfig = {
 				options: {
 					chart: {
@@ -65,7 +66,7 @@ app.controller('statsCtrl', function($scope, $http, myFactory) {
 	});
 
 	function fetchStats(value){
-		$http.get('http://localhost:4968/getStats?filter='+value+'&table='+myFactory.get()).success(function(data, status, headers, config) {		
+		$http.get(baseURL+'/getStats?filter='+value+'&table='+myFactory.get()).success(function(data, status, headers, config) {		
 			$scope.stats = data;
 		}).error(function(data, status, headers, config) {
 			$scope.stats.filter = "Error getting the statistics";

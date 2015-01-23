@@ -119,7 +119,7 @@ function getStats(response, filter, table){
 function deleteTests(response, tests, table){
 	var query;
 	if(tests === "all"){
-		query = connection.query("", function(err, rows, fields) {
+		query = connection.query("DELETE FROM "+table, function(err, rows, fields) {
 			if (err) {
 				console.log(err);
 			}
@@ -130,6 +130,16 @@ function deleteTests(response, tests, table){
 		});	
 	} else if(tests === "previous"){
 		query = connection.query("DELETE FROM "+table+" ORDER BY id DESC LIMIT 1", function(err, rows, fields) {
+			if (err) {
+				console.log(err);
+			}
+		});
+
+		query.on('end',function(){
+			response.end();
+		});	
+	} else if(tests === "hundred"){
+		query = connection.query("DELETE FROM "+table+" ORDER BY id ASC LIMIT 100", function(err, rows, fields) {
 			if (err) {
 				console.log(err);
 			}
@@ -368,7 +378,7 @@ function badRequest(response){
 var server = http.createServer(function (request,response){
 	var parts = url.parse(request.url,true);
 	var path = parts.path;
-	console.log("Ping - " + request.method +" " +path);
+	console.log("Ping - "+request.connection.remoteAddress+" - " + request.method +" " +path);
 	if(path.indexOf("/getTestData?table=") === 0){
 		if(verifyGetRequest(request,response)){
 			getTestObjects(response, parts.query.table, getAddNotesToTests);

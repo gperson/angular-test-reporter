@@ -9,7 +9,7 @@ USE tests;
 
 CREATE TABLE tests_Default(
     `id` 							INT UNIQUE NOT NULL AUTO_INCREMENT,
-    `name`						    VARCHAR(50),
+    `name`						    VARCHAR(200),
     `param`						    VARCHAR(100),
     `error`						    VARCHAR(700),
     `start`						    DATETIME DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE notes_Default(
  */
 CREATE TABLE tests_ExampleProject(
     `id` 							INT UNIQUE NOT NULL AUTO_INCREMENT,
-    `name`						    VARCHAR(50),
+    `name`						    VARCHAR(200),
     `param`						    VARCHAR(100),
     `error`						    VARCHAR(700),
     `start`						    DATETIME DEFAULT NULL,

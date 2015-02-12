@@ -1,58 +1,80 @@
 <div ng-controller="testsCtrl">
 	<h3 id="viewTitle">Test Run History</h3>
-	<div id="filter-container">
-		<div class="input-group input-group-sm">
-  			<span class="input-group-addon" id="sizing-addon3">Filter</span>
-  			<input type="text" class="form-control ng-valid ng-dirty" placeholder="Search Value" aria-describedby="sizing-addon3" ng-model="searchKeyword">
+	<div>
+		<div id="filter-container">
+			<div class="input-group">
+				<span class="input-group-addon" id="sizing-addon3">Filter</span> <input
+					type="text" class="form-control ng-valid ng-dirty"
+					placeholder="Search Value" aria-describedby="sizing-addon3"
+					ng-model="searchKeyword">
+			</div>
+		</div>
+		<div id="column-select-container" class="btn-toolbar" role="toolbar"
+			aria-label="Toolbar with button groups">
+			<div class="btn-group" role="group" aria-label="columns">
+				<button type="button" class="btn btn-default" ng-class="bC1" ng-click="toggleIdCol()">Id</button>
+				<button type="button" class="btn btn-default" ng-class="bC2" ng-click="toggleNameCol()">Name</button>
+				<button type="button" class="btn btn-default" ng-class="bC3" ng-click="toggleErrorCol()">Error</button>
+				<button type="button" class="btn btn-default" ng-class="bC4" ng-click="toggleRICol()">Run Info.</button>
+				<button type="button" class="btn btn-default" ng-class="bC5" ng-click="toggleParamCol()">Parameters</button>
+				<button type="button" class="btn btn-default" ng-class="bC6" ng-click="toggleStartCol()">Start</button>
+				<button type="button" class="btn btn-default" ng-class="bC7" ng-click="toggleEndCol()">End</button>
+				<button type="button" class="btn btn-default" ng-class="bC8" ng-click="toggleElapCol()">Elapsed</button>
+				<button type="button" class="btn btn-default" ng-class="bC9" ng-click="toggleExtraCol()">Extra Info.</button>
+			</div>
 		</div>
 	</div>
-	<table  class="table table-hover table-condensed table-bordered">
-  		<thead>
-  			<tr>
-  				<td id="h_id">Id</td>
-  				<td id="h_name">Name</td>
-  				<td id="h_error">Error</td>
-  				<td id="h_info">Run Info.</td>
-  				<td id="h_param">Parameters</td>
-  				<td id="h_start">Start</td>
-  				<td id="h_end">End</td>
-  				<td id="h_elpased">Elapsed</td>
-  				<td id="h_extra">Extra Info</td>
-  			</tr>
-  		</thead>
-  		<tbody ng-repeat="test in tests | filter: searchKeyword">
-  			<tr class="{{test.status}}" id="{{test.id}}" ng-click="toggleNotes(test.id)">
-  				<td>{{test.id}}{{test.notes.length === 0 ? "" : " ⊕"}}</td>
-  				<td class="b_name">{{test.name}}</td>
-  				<td class="b_error">{{test.error}}</td>
-  				<td class="b_runInfo">{{test.runInfo}}</td>
-  				<td class="b_param">{{test.param}}</td>
-  				<td>{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
-  				<td>{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
-  				<td>{{(test.end - test.start)/60000.0 | number:2}} mins</td>
-  				<td class="b_extra">{{test.extra}}</td>
-  			</tr>
-  			<tr class="notes" style="display:none">
-  				<td ng-controller="notesCtrl" colspan="9" ng-init="init(test.notes)">
-  					<h3>Notes</h3>
-  					<div ng-repeat="note in notesForm" class="bs-callout bs-callout-primary">
-    					<p>{{note.note}}</p>
+	<table class="table table-hover table-condensed table-bordered">
+		<thead>
+			<tr>
+				<td id="h_id" ng-style="c1">Id</td>
+				<td id="h_name" ng-style="c2">Name</td>
+				<td id="h_error" ng-style="c3">Error</td>
+				<td id="h_info" ng-style="c4">Run Info.</td>
+				<td id="h_param" ng-style="c5">Parameters</td>
+				<td id="h_start" ng-style="c6">Start</td>
+				<td id="h_end" ng-style="c7">End</td>
+				<td id="h_elpased" ng-style="c8">Elapsed</td>
+				<td id="h_extra" ng-style="c9">Extra Info.</td>
+			</tr>
+		</thead>
+		<tbody ng-repeat="test in tests | filter: searchKeyword">
+			<tr class="{{test.status}}" id="{{test.id}}"
+				ng-click="toggleNotes(test.id)">
+				<td ng-style="c1">{{test.id}}{{test.notes.length === 0 ? "" : " ⊕"}}</td>
+				<td class="b_name" ng-style="c2">{{test.name}}</td>
+				<td class="b_error" ng-style="c3">{{test.error}}</td>
+				<td class="b_runInfo" ng-style="c4">{{test.runInfo}}</td>
+				<td class="b_param" ng-style="c5">{{test.param}}</td>
+				<td ng-style="c6">{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
+				<td ng-style="c7">{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
+				<td ng-style="c8">{{(test.end - test.start)/60000.0 | number:2}} mins</td>
+				<td class="b_extra" ng-style="c9">{{test.extra}}</td>
+			</tr>
+			<tr class="notes" style="display: none">
+				<td ng-controller="notesCtrl" colspan="9" ng-init="init(test.notes)">
+					<h3>Notes</h3>
+					<div ng-repeat="note in notesForm"
+						class="bs-callout bs-callout-primary">
+						<p>{{note.note}}</p>
 						<p>- {{note.who}}</p>
-  					</div>
-  					<div class="bs-callout bs-callout-primary">
-  						<form ng-submit="addNote($event)" novalidate>
-    						<h4>Add note</h4>
-    						Note:<br>
-    						<textarea rows="5" type="text" class="form-control" ng-model="noteInput"></textarea>
-    						Name:<br>
-    						<input type="text" class="form-control" ng-model="whoInput">
-    						<button class="btn btn-primary" type="submit">Add Note</button>
-    						<br>
-  						</form>
-  					</div>
-  				</td>
-  			</tr>
-  		</tbody>
-  	</table>
-  	<div>⊕ → Denotes a test has notes, Green → Pass, Red → Failure, Yellow → Error, White → Default</div>
+					</div>
+					<div class="bs-callout bs-callout-primary">
+						<form ng-submit="addNote($event)" novalidate>
+							<h4>Add note</h4>
+							Note:<br>
+							<textarea rows="5" type="text" class="form-control"
+								ng-model="noteInput"></textarea>
+							Name:<br> <input type="text" class="form-control"
+								ng-model="whoInput">
+							<button class="btn btn-primary" type="submit">Add Note</button>
+							<br>
+						</form>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>⊕ → Denotes a test has notes, Green → Pass, Red → Failure,
+		Yellow → Error, White → Default</div>
 </div>

@@ -5,10 +5,10 @@ Configuration
 
 UI
 -Add color code key
--Add something to show a test has comments
 -Figure out how to display long exception
 
 Enhancements
+-Cache Tests
 -Statistics
 -Pull tests by run info, other filters
 

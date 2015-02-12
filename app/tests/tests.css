@@ -55,6 +55,12 @@
 #filter-container {
 	max-width: 300px;
 	margin-bottom: 10px;
+	float : left;
+}
+
+#column-select-container{
+	float : left;
+	margin-left : 10px;
 }
 
 .b_name, .b_error, .b_param, .b_extra, .b_runInfo {

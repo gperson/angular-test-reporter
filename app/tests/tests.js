@@ -11,6 +11,25 @@ app.config(['$routeProvider', function($routeProvider) {
 app.controller('testsCtrl', function($scope, $http, myFactory) {
 	var baseURL = 'http://localhost:4968';
 	
+	$scope.c1 = {display: 'none'};
+	$scope.bC1 = 'active';
+	$scope.c2 = {display: ''};
+	$scope.bC2 = '';
+	$scope.c3 = {display: ''};
+	$scope.bC3 = '';
+	$scope.c4 = {display: ''};
+	$scope.bC4 = '';
+	$scope.c5 = {display: ''};
+	$scope.bC5 = '';
+	$scope.c6 = {display: 'none'};
+	$scope.bC6 = 'active';
+	$scope.c7 = {display: 'none'};
+	$scope.bC7 = 'active';
+	$scope.c8 = {display: ''};
+	$scope.bC8 = '';
+	$scope.c9 = {display: 'none'};
+	$scope.bC9 = 'active';
+	
 	$http.get(baseURL+'/getTestData?table='+myFactory.get()).success(function(data, status, headers, config) {		
 		var objs = [];
 		for(var i = 0; i < data.length; i++){
@@ -35,7 +54,106 @@ app.controller('testsCtrl', function($scope, $http, myFactory) {
 			$notes.css("display", "none");
 		}
 	};
+	
+	$scope.toggleIdCol = function(){
+		if(!($scope.c1.display === '')){
+			$scope.c1 = {display: ''};
+			$scope.bC1 = "";
+		}
+		else{
+			$scope.c1 = {display : 'none'};
+			$scope.bC1 = "active";
+		}
+	};
 
+	$scope.toggleNameCol = function(){
+		if(!($scope.c2.display === '')){
+			$scope.c2 = {display: ''};
+			$scope.bC2 = "";
+		}
+		else{
+			$scope.c2 = {display : 'none'};
+			$scope.bC2 = "active";
+		}
+	};
+	
+	$scope.toggleErrorCol = function(){
+		if(!($scope.c3.display === '')){
+			$scope.c3 = {display: ''};
+			$scope.bC3 = "";
+		}
+		else{
+			$scope.c3 = {display : 'none'};
+			$scope.bC3 = "active";
+		}
+	};
+	
+	$scope.toggleRICol = function(){
+		if(!($scope.c4.display === '')){
+			$scope.c4 = {display: ''};
+			$scope.bC4 = "";
+		}
+		else{
+			$scope.c4 = {display : 'none'};
+			$scope.bC4 = "active";
+		}
+	};
+	
+	$scope.toggleParamCol = function(){
+		if(!($scope.c5.display === '')){
+			$scope.c5 = {display: ''};
+			$scope.bC5 = "";
+		}
+		else{
+			$scope.c5 = {display : 'none'};
+			$scope.bC5 = "active";
+		}
+	};
+	
+	$scope.toggleStartCol = function(){
+		if(!($scope.c6.display === '')){
+			$scope.c6 = {display: ''};
+			$scope.bC6 = "";
+		}
+		else{
+			$scope.c6 = {display : 'none'};
+			$scope.bC6 = "active";
+		}
+	};
+	
+	$scope.toggleEndCol = function(){
+		if(!($scope.c7.display === '')){
+			$scope.c7 = {display: ''};
+			$scope.bC7 = "";
+		}
+		else{
+			$scope.c7 = {display : 'none'};
+			$scope.bC7 = "active";
+		}
+	};
+	
+	$scope.toggleElapCol = function(){
+		if(!($scope.c8.display === '')){
+			$scope.c8 = {display: ''};
+			$scope.bC8 = "";
+		}
+		else{
+			$scope.c8 = {display : 'none'};
+			$scope.bC8 = "active";
+		}
+	};
+	
+	$scope.toggleExtraCol = function(){
+		if(!($scope.c9.display === '')){
+			$scope.c9 = {display: ''};
+			$scope.bC9 = "";
+		}
+		else{
+			$scope.c9 = {display : 'none'};
+			$scope.bC9 = "active";
+		}
+	};
+	
 });
 
 /**

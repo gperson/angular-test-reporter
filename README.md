@@ -95,7 +95,7 @@ Bellow is a brief guide for deploying angular-test-reporter on a EC2 instance, I
   * vi /etc/sudoers
   * Insert :/usr/local/bin to the end of "Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin" and save and close vi
   * git clone http://github.com/isaacs/npm.git
-cd npm
+  * cd npm
 sudo make install
 4. Clone the angular-test-reporter object using "git clone ..."
 5. Install my mysql by running: 

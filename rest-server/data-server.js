@@ -124,15 +124,43 @@ function getStats(response, filter, table){
 function deleteTests(response, tests, table){
 	var query;
 	if(tests === "all"){
-		query = connection.query("DELETE FROM "+table, function(err, rows, fields) {
+		var query2,query3,query4;
+		var q1 = "SET foreign_key_checks=0";
+		var q2 = "TRUNCATE TABLE notes_"+table.substring(6);
+		var q3 = "TRUNCATE TABLE "+table;
+		var q4 = "SET foreign_key_checks=1";
+		
+		query = connection.query(q1, function(err, rows, fields) {
 			if (err) {
 				console.log(err);
 			}
 		});
-
 		query.on('end',function(){
-			response.end();
-		});	
+			query2 = connection.query(q2, function(err, rows, fields) {
+				if (err) {
+					console.log(err);
+				}
+			});
+			query2.on('end',function(){
+				query3 = connection.query(q3, function(err, rows, fields) {
+					if (err) {
+						console.log(err);
+					}
+				});
+				query3.on('end',function(){
+					query4 = connection.query(q4, function(err, rows, fields) {
+						if (err) {
+							console.log(err);
+						}
+					});
+					query4.on('end',function(){
+						response.end();
+					});
+				});
+			});
+		});
+		
+		
 	} else if(tests === "previous"){
 		query = connection.query("DELETE FROM "+table+" ORDER BY id DESC LIMIT 1", function(err, rows, fields) {
 			if (err) {

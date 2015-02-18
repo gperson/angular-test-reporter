@@ -15,7 +15,7 @@
 			<div>This will delete the test that matches the given Id.</div>
 			<div>
 				<div id="delete_by_id_group" class="input-group">
-					<input id="testToDelete" type="text" class="form-control" placeholder="Type Id..."> <span
+					<input id="testToDelete" type="text" class="form-control" placeholder="Id"> <span
 						class="input-group-btn">
 						<button class="btn btn-default" type="button" ng-click="deleteTest()">Delete</button>
 					</span>
@@ -36,7 +36,7 @@
 				<strong>Message:</strong> {{alertText2}}
 			</div>
 			<div>
-				This will <strong>delete the 100 oldest tests</strong> that are currently in the database for this project.
+				This will <strong>delete the 100 oldest tests and their notes</strong> for this project.
 			</div>
 			<div>
 				<button class="btn btn-warning buttons" ng-click="deleteHundred()">Delete 100 Oldest Tests</button>
@@ -46,7 +46,7 @@
 				<button class="btn btn-warning buttons" ng-click="">Dump and Delete</button>
 			</div>-->
 			<div>
-				This will <strong>delete all tests</strong> that are currently in the database for this project.
+				This will <strong>delete all tests and their notes</strong> for this project.
 			</div>
 			<div>
 				<button class="btn btn-danger buttons" ng-click="deleteAll()">Delete All Tests</button>

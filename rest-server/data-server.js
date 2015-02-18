@@ -13,6 +13,11 @@ var connection = mysql.createConnection({
 });
 
 /**
+ * UI servers ip
+ */
+var ip = 'localhost';
+
+/**
  * Gets the 'test' objects from the database
  * @param response Response to write the test to
  * @param callback Function to map sub objects to the list of tests
@@ -140,6 +145,16 @@ function deleteTests(response, tests, table){
 		});	
 	} else if(tests === "hundred"){
 		query = connection.query("DELETE FROM "+table+" ORDER BY id ASC LIMIT 100", function(err, rows, fields) {
+			if (err) {
+				console.log(err);
+			}
+		});
+
+		query.on('end',function(){
+			response.end();
+		});	
+	} else if(tests === (parseInt(tests, 10)+"")){
+		query = connection.query("DELETE FROM "+table+" WHERE id ="+connection.escape(tests), function(err, rows, fields) {
 			if (err) {
 				console.log(err);
 			}
@@ -302,7 +317,7 @@ function handlePost(request, response, action){
  */
 function verifyGetRequest(request,response){
 	if(request.method === 'GET'){
-		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Origin', 'http://'+ip+':8000');
 		response.setHeader('Access-Control-Allow-Methods', 'GET');
 		response.statusCode = 200;
 		return true;
@@ -320,14 +335,14 @@ function verifyGetRequest(request,response){
  */
 function verifyPostRequest(request,response){
 	if(request.method === 'OPTIONS'){
-		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Origin', 'http://'+ip+':8000');
 		response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
 		response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 		response.statusCode = 200;
 		response.end();
 		return false;
 	} else if(request.method === 'POST'){
-		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Origin', 'http://'+ip+':8000');
 		response.setHeader('Access-Control-Allow-Methods', 'POST');
 		response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 		response.statusCode = 200;
@@ -346,13 +361,13 @@ function verifyPostRequest(request,response){
  */
 function verifyDeleteRequest(request,response){
 	if(request.method === 'OPTIONS'){
-		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Origin', 'http://'+ip+':8000');
 		response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, DELETE');
 		response.statusCode = 200;
 		response.end();
 		return false;
 	} else if(request.method === 'DELETE'){
-		response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+		response.setHeader('Access-Control-Allow-Origin', 'http://'+ip+':8000');
 		response.setHeader('Access-Control-Allow-Methods', 'DELETE');
 		response.statusCode = 200;
 		return true;
@@ -378,7 +393,8 @@ function badRequest(response){
 var server = http.createServer(function (request,response){
 	var parts = url.parse(request.url,true);
 	var path = parts.path;
-	console.log("Ping - "+request.connection.remoteAddress+" - " + request.method +" " +path);
+	
+	//console.log("Ping - "+request.connection.remoteAddress+" - " + request.method +" " +path);
 	if(path.indexOf("/getTestData?table=") === 0){
 		if(verifyGetRequest(request,response)){
 			getTestObjects(response, parts.query.table, getAddNotesToTests);

@@ -9,9 +9,9 @@ USE tests;
 
 CREATE TABLE tests_Default(
     `id` 							INT UNIQUE NOT NULL AUTO_INCREMENT,
-    `name`						    VARCHAR(200),
+    `name`						    VARCHAR(300),
     `param`						    VARCHAR(100),
-    `error`						    VARCHAR(700),
+    `error`						    VARCHAR(1000),
     `start`						    DATETIME DEFAULT NULL,
     `end`						    DATETIME DEFAULT NULL,
     `status`						VARCHAR(50) NOT NULL,
@@ -39,9 +39,9 @@ CREATE TABLE notes_Default(
  */
 CREATE TABLE tests_ExampleProject(
     `id` 							INT UNIQUE NOT NULL AUTO_INCREMENT,
-    `name`						    VARCHAR(200),
+    `name`						    VARCHAR(300),
     `param`						    VARCHAR(100),
-    `error`						    VARCHAR(700),
+    `error`						    VARCHAR(1000),
     `start`						    DATETIME DEFAULT NULL,
     `end`						    DATETIME DEFAULT NULL,
     `status`						VARCHAR(50) NOT NULL,

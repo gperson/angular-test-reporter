@@ -6,3 +6,7 @@
 .panels{
 	max-width : 700px;
 }
+
+#delete_by_id_group{
+	width: 183px;
+}

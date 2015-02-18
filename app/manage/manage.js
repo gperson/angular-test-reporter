@@ -9,7 +9,7 @@ app.config(['$routeProvider', function($routeProvider) {
 }])
 
 app.controller('manageCtrl', function($scope, $http, myFactory, $timeout) {
-	var baseURL = 'http://localhost:4968', timer = false, displayDuration = 3000;
+	var baseURL = 'http://localhost:4968', timer = false, displayDuration = 2000;
 
 	$scope.alertText1 = "";
 	$scope.showAlert1 = false;
@@ -57,5 +57,26 @@ app.controller('manageCtrl', function($scope, $http, myFactory, $timeout) {
 			alert("Error deleting tests");
 		});
 	};
+
+	$scope.deleteTest = function() {
+		var input = document.getElementById("testToDelete");
+		var id = input.value;
+		input.value = "";
+		if (id === (parseInt(id, 10)+"")){
+			$http.delete(baseURL+'/deleteTests?tests='+id+'&table='+myFactory.get()).success(function(data, status, headers, config) {		
+
+				$scope.alertText1 = "Deleted test "+id+".";
+				$scope.showAlert1 = true;
+				timer = $timeout(function () {
+					$scope.showAlert1 = false;
+				}, displayDuration);
+			}).error(function(data, status, headers, config) {
+				alert("Error deleting test "+id+".");
+			});
+		}
+		else {
+			alert("Error deleting test, please enter a valid integer value");
+		}
+	}
 
 });

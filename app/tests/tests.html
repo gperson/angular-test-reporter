@@ -30,7 +30,7 @@
 				<td id="h_id" ng-style="c1">Id</td>
 				<td id="h_name" ng-style="c2">Name</td>
 				<td id="h_error" ng-style="c3">Error</td>
-				<td id="h_info" ng-style="c4">Run Info.</td>
+				<td id="h_runInfo" ng-style="c4">Run Info.</td>
 				<td id="h_param" ng-style="c5">Parameters</td>
 				<td id="h_start" ng-style="c6">Start</td>
 				<td id="h_end" ng-style="c7">End</td>
@@ -46,9 +46,9 @@
 				<td class="b_error" ng-style="c3">{{test.error}}</td>
 				<td class="b_runInfo" ng-style="c4">{{test.runInfo}}</td>
 				<td class="b_param" ng-style="c5">{{test.param}}</td>
-				<td ng-style="c6">{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
-				<td ng-style="c7">{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
-				<td ng-style="c8">{{(test.end - test.start)/60000.0 | number:2}} mins</td>
+				<td class="b_start" ng-style="c6">{{(test.start | date:"MM/dd/yyyy h:mm:ss a")}}</td>
+				<td class="b_end" ng-style="c7">{{(test.end | date:"MM/dd/yyyy h:mm:ss a")}}</td>
+				<td class="b_elapsed" ng-style="c8">{{(test.end - test.start)/60000.0 | number:2}} mins</td>
 				<td class="b_extra" ng-style="c9">{{test.extra}}</td>
 			</tr>
 			<tr class="notes" style="display: none">

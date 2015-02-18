@@ -11,12 +11,12 @@ app.config(['$routeProvider', function($routeProvider) {
 app.controller('testsCtrl', function($scope, $http, myFactory) {
 	var baseURL = 'http://localhost:4968';
 	
-	$scope.c1 = {display: 'none'};
-	$scope.bC1 = 'active';
+	$scope.c1 = {display: ''};
+	$scope.bC1 = '';
 	$scope.c2 = {display: ''};
 	$scope.bC2 = '';
-	$scope.c3 = {display: ''};
-	$scope.bC3 = '';
+	$scope.c3 = {display: 'none'};
+	$scope.bC3 = 'active';
 	$scope.c4 = {display: ''};
 	$scope.bC4 = '';
 	$scope.c5 = {display: ''};
@@ -177,7 +177,7 @@ app.controller('notesCtrl', function($scope,$http, myFactory) {
 		$scope.whoInput = '';
 
 		$http.post(baseURL+'/addNote?table='+myFactory.get(), JSON.stringify(note)).success(function(data, status, headers, config) {
-			console.log("SUCCESS - Adding Note");
+			
 		}).error(function(data, status, headers, config) {
 			alert("Your note wasn't saved, please don't cry.")
 		});
